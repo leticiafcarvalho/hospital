@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-// import './Login.css';
+import { useNavigate } from 'react-router-dom'; // Importando useNavigate
 
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate(); // Inicializando o useNavigate
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -12,6 +13,7 @@ function Login() {
             const response = await axios.post('http://localhost:5000/api/usuarios/login', { email, password });
             localStorage.setItem('token', response.data.token);
             alert('Login bem-sucedido');
+            navigate('/dashboard'); // Redireciona para a tela de quem está logado
         } catch (error) {
             alert('Erro ao fazer login');
         }
